@@ -15,7 +15,7 @@ while(!((n<=9)&(n>=1)))
   {  printf("ERROR:::the number you entered is out of range\n");
      n=shah();
 }
-printf("ALRIGHT!!:enter the number u entered is %d\n",n);
+printf("ALRIGHT!!:The number u entered is %d\n",n);
 return 0;
 }
 
