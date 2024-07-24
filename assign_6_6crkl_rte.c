@@ -2,29 +2,30 @@
 
 int main() {
     int a = 0x12345678;
-    printf("Original value: 0x%08x\n", a);
+
+    printf("Resulting value original: 0x%08x\n", a);
 
     int nibble_pos, nibble_data;
-    printf("Enter nibble position (0-7):\n");
+    printf("Enter nibble position\n");
     scanf("%d", &nibble_pos);
-    printf("Enter nibble data (0x0-0xF):\n");
+
+    printf("Enter nibble data\n");
     scanf("%x", &nibble_data);
 
     int mask = (1 << 4) - 1;
+
     int output;
+    volatile int *address = (int *)&output;
 
-    // Modify the specified nibble
-    a = (a & ~(mask << (nibble_pos * 4))) | (nibble_data << (nibble_pos * 4));
-    printf("After modifying nibble: 0x%08x\n", a);
+    a = (a & ~(mask << (nibble_pos * 4)) | (nibble_data << (nibble_pos * 4)));
+    printf("%x\n", a);
 
-    // Perform a circular left shift by 4
-    a = (a << 4) | (a >> (32 - 4));
+    // Write data to the address
+    a = a << 4 | a >> 32 - 4;
+    *address = a;
 
-    // Assign the result to output
-    output = a;
-
-    // Print the result
-    printf("Result after circular left shift: 0x%08x\n", output);
+    // Optionally, read back and print to verify
+    printf("Data written to address (0x80000000) 0x%08x: 0x%08x\n", &address, *address);
 
     return 0;
 }
