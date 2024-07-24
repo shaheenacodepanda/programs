@@ -12,7 +12,7 @@ int nibble_pos, nibble_data;
 printf("Enter nibble position\n");
 scanf("%d",&nibble_pos);
 printf("Enter nibble data\n");
-scanf("%d",&nibble_data);
+scanf("%x",&nibble_data);
 int mask = (1<<4)-1;
 //printf("%x\n", mask);
 int output;
